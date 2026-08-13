@@ -1,0 +1,39 @@
+#!/run/current-system/sw/bin/bash
+
+CURRENT_WAYBAR_LINK_TARGET=$(readlink -f ~/.config/waybar/style.css)
+
+LIGHT_GTK_THEME="Adwaita"
+DARK_GTK_THEME="Adwaita-dark"
+
+if [[ "$CURRENT_WAYBAR_LINK_TARGET" == *"-dark.css" ]]; then
+    NEW_THEME_SUFFIX=""
+    echo "Current theme is Dark. Switching to Light theme."
+
+    gsettings set org.gnome.desktop.interface color-scheme 'default'
+    gsettings set org.gnome.desktop.interface gtk-theme "$LIGHT_GTK_THEME"
+    TARGET_WALLPAPER_PATH="$HOME/.config/hypr/wallpapers/wallpaper.jpg"
+else
+    NEW_THEME_SUFFIX="-dark"
+    echo "Current theme is Light. Switching to Dark theme."
+
+    gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
+    gsettings set org.gnome.desktop.interface gtk-theme "$DARK_GTK_THEME"
+    TARGET_WALLPAPER_PATH="$HOME/.config/hypr/wallpapers/wallpaper-dark.jpg"
+fi
+
+if ln -sf "$HOME/.config/waybar/style/style${NEW_THEME_SUFFIX}.css" "$HOME/.config/waybar/style.css"; then
+    echo "Waybar theme symlink updated to style${NEW_THEME_SUFFIX}.css"
+else
+    echo "ERROR: Failed to update Waybar theme symlink."
+    exit 1
+fi
+
+echo "Setting wallpaper to: $TARGET_WALLPAPER_PATH"
+awww img "$TARGET_WALLPAPER_PATH" --transition-fps 45 --transition-type wipe --transition-duration 1.75
+
+echo "Restarting Waybar..."
+pkill waybar
+sleep 0.2
+waybar &>/dev/null & disown
+
+echo "Theme switch complete."

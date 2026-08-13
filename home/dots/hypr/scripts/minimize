@@ -1,0 +1,4 @@
+#!/run/current-system/sw/bin/bash
+
+hyprctl dispatch togglespecialworkspace minimized
+hyprctl dispatch movetoworkspace +0

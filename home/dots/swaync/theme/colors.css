@@ -1,0 +1,20 @@
+
+/* Base */
+@define-color background        #1a1c1f;      /* main bg behind blur */
+@define-color background-sec    #23262a;      /* secondary bg for widgets */
+@define-color foreground        #e5e9f0;      /* text */
+@define-color foreground-alt    #c8cdd6;      /* dim text */
+
+/* UI / Blur Layers */
+@define-color color1            #2e3440;      /* panel bg (dark translucent) */
+@define-color color2            #bf616a;      /* urgent / red */
+@define-color color3            #88c0d0;      /* selected / active */
+@define-color color4            #5e81ac;      /* highlight accent */
+@define-color color5            #81a1c1;      /* hover */
+@define-color color6            #a3be8c;      /* success / green */
+
+/* Optional extra colors (not required but useful) */
+@define-color border            alpha(@foreground, .12);
+@define-color shadow            rgba(0,0,0,.55);
+@define-color text-muted        alpha(@foreground, .55);
+@define-color background-blur   alpha(@background, .45);

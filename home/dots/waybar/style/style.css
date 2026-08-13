@@ -1,0 +1,157 @@
+* {
+    border: none;
+    border-radius: 0;
+    font-family: "JetBrainsMono Nerd Font", "Font Awesome 7 Free";
+    font-weight: bold;
+    font-size: 14px;
+    min-height: 0;
+}
+
+window#waybar {
+    /* A semi-transparent dark grey for a sleek look */
+    background: rgba(20, 20, 20, 0.9);
+    /* A light grey for all default text */
+    color: #cccccc;
+    border-radius: 0px;
+    padding: 2px 5px;
+}
+
+tooltip {
+    background: #2a2a2a;
+    opacity: 0.9;
+    border-radius: 10px;
+    border-width: 2px;
+    border-style: solid;
+    border-color: #1a1a1a;
+}
+
+tooltip label {
+    color: #cccccc;
+}
+
+/* --- Window Title --- */
+#custom-app-title-icon {
+    font-size: 14px;
+    /* A subtle medium grey for the icon */
+    color: #888888;
+    border-radius: 6px;
+    padding-left: 3px;
+    padding-right: 7px;
+}
+
+label#custom-app-name {
+    margin-left: 8px;
+    margin-right: 10px;
+    font-size: 14px;
+    color: #cccccc;
+}
+
+#window {
+    border-radius: 10px;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+
+/* --- Workspaces --- */
+#workspaces {
+    background: transparent;
+    margin: 0 5px;
+}
+
+#workspaces button {
+    padding: 0 3px;
+    /* A dimmer grey for inactive workspaces */
+    color: #888888;
+    border-bottom: 2px solid transparent;
+    transition: all 0.3s ease;
+}
+
+#workspaces button:hover {
+    box-shadow: inherit;
+    text-shadow: inherit;
+    /* A light grey on hover */
+    color: #cccccc;
+    border-bottom: 2px solid #888888;
+}
+
+#workspaces button.active {
+    /* Bright white for the active workspace */
+    color: #ffffff;
+    border-bottom: 2px solid #ffffff;
+}
+
+
+/* --- General Module Styling --- */
+#custom-launch_wofi,
+#custom-lock_screen,
+#custom-light_dark,
+#custom-power_btn,
+#custom-power_profile,
+#custom-weather,
+#window,
+#cpu,
+#disk,
+#custom-updates,
+#memory,
+#clock,
+#battery,
+#pulseaudio,
+#network,
+#tray,
+#temperature,
+#workspaces,
+#backlight {
+    opacity: 0.9;
+    padding: 2px 7px;
+    border: 0px;
+    background: transparent;
+}
+
+/* --- Right-aligned Modules --- */
+#cpu,
+#disk,
+#memory {
+    font-size: 14px;
+    padding-left: 10px;
+    padding-right: 10px;
+    color: #cccccc;
+}
+
+#temperature.critical,
+#battery.critical {
+    /* Bright white for critical states */
+    color: #ffffff;
+}
+
+#network {
+    margin-right: 10px;
+    color: #cccccc;
+}
+
+#network.disconnected {
+    /* Dim grey for disconnected state */
+    color: #888888;
+}
+
+#pulseaudio,
+#pulseaudio.microphone,
+#battery,
+#backlight,
+#custom-power_profile {
+    color: #cccccc;
+}
+
+#clock,
+#custom-lock_screen,
+#custom-power_btn {
+    /* Bright white for important controls */
+    color: #ffffff;
+}
+
+/* --- Left-aligned Modules --- */
+#custom-launch_wofi {
+    /* Bright white for the app launcher icon */
+    color: #ffffff;
+    margin-left: 10px;
+}

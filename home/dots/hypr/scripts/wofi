@@ -1,0 +1,11 @@
+#!/run/current-system/sw/bin/bash
+
+WAYBAR_STYLE_PATH=$(readlink -f ~/.config/waybar/style.css)
+
+FILENAME=$(basename "$WAYBAR_STYLE_PATH")
+
+if [[ $FILENAME == *"dark.css"* ]]; then
+  wofi --conf "$HOME/.config/wofi/config/config" --style "${HOME}/.config/wofi/src/mocha/style.css"
+else
+  wofi --conf "$HOME/.config/wofi/config/config" --style "${HOME}/.config/wofi/src/latte/style.css"
+fi

@@ -1,0 +1,13 @@
+#!/run/current-system/sw/bin/bash
+
+awww-daemon &
+
+WAYBAR_STYLE_PATH=$(readlink -f ~/.config/waybar/style.css)
+
+FILENAME=$(basename "$WAYBAR_STYLE_PATH")
+
+if [[ $FILENAME == *"dark.css"* ]]; then
+    awww img ~/.config/hypr/wallpapers/wallpaper-dark.jpg
+else
+    awww img ~/.config/hypr/wallpapers/wallpaper.jpg
+fi

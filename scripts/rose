@@ -1,0 +1,76 @@
+CP_ROOT="$HOME/CP"
+
+# ANSI Color Codes
+RED='\033[1;31m'
+GREEN='\033[1;32m'
+CYAN='\033[1;36m'
+NC='\033[0m' # No Color
+
+read -p "$(echo -e ${CYAN}🍤 Problem Name: ${NC})" problem_name
+
+if [ -z "$problem_name" ]; then
+    echo -e "${RED}✗ Empty problem name. Aborted.${NC}"
+    exit 1
+fi
+
+selected_dir=$(find "$CP_ROOT" -mindepth 1 -type d -not -path '*/\.*' | fzf --prompt="📂 Select Directory: " --color=prompt:6)
+
+if [ -z "$selected_dir" ]; then
+    echo -e "${RED}✗ No directory selected. Aborted.${NC}"
+    exit 1
+fi
+
+problem_folder_path="$selected_dir/$problem_name"
+
+if [ -d "$problem_folder_path" ]; then
+    echo -e "${RED}✗ Directory '$problem_folder_path' already exists. Aborted.${NC}"
+    exit 1
+fi
+
+mkdir -p "$problem_folder_path"
+touch "$problem_folder_path/input.txt"
+touch "$problem_folder_path/output.txt"
+
+cat > "$problem_folder_path/main.cpp" <<EOL
+#include <bits/stdc++.h>
+
+using namespace std;
+
+/* clang-format off */
+template<typename A, typename B> ostream& operator<<(ostream &os, const pair<A, B> &p) { return os << '(' << p.first << ", " << p.second << ')'; }
+template<typename T_container, typename T = typename enable_if<!is_same<T_container, string>::value, typename T_container::value_type>::type> ostream& operator<<(ostream &os, const T_container &v) { os << '{'; string sep; for (const T &x : v) os << sep << x, sep = ", "; return os << '}'; }
+void dbg_out() { cerr << endl; }
+template<typename Head, typename... Tail> void dbg_out(Head H, Tail... T) { cerr << ' ' << H; dbg_out(T...); }
+#ifdef DEBUG
+#define dbg(...) cerr << "(" << #__VA_ARGS__ << "):", dbg_out(__VA_ARGS__)
+#else
+#define dbg(...)
+#endif
+
+#define ll long long
+#define pll pair<long long, long long>
+#define vll vector<long long>
+#define pb push_back
+#define all(a) (a).begin(), (a).end()
+
+#define fast_io ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
+#define io freopen("input.txt", "r", stdin); freopen("output.txt", "w", stdout); cerr.rdbuf(cout.rdbuf());
+/* clang-format on */
+
+void solve(){
+    // code here
+}
+
+int main(){
+  fast_io;
+#ifdef DEBUG
+  io;
+#endif
+  int t;cin>>t;
+  while(t--) solve();
+}
+EOL
+
+echo -e "${GREEN}✔ Workspace generated at $(basename "$selected_dir")/$problem_name${NC}"
+cd "$problem_folder_path"
+nvim "output.txt" -c "vsplit main.cpp | wincmd l | split input.txt | wincmd h | vertical resize 120 | execute \"normal! 1GV24Gzf\""
